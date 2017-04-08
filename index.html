@@ -53,6 +53,33 @@
 
 			//insert to DOM
 			ul.appendChild(sticky);
+			sticky.innerHTML = value;
+
+			//input key、value into LocalStorage
+			var stickiesArray = saveStickyToLocalStorage(key,value);
+			console.log(stickiesArray);
+
+		}
+
+		function saveStickyToLocalStorage(key,value) {
+			// 1. [key,key,key...,key]
+			var stickies = JSON.parse(localStorage.getItem("stickies"));  
+
+			//judge stickies been or not
+			if(!stickies){
+				var stickies = [key];
+			}else{
+				stickies.push(key);
+			}
+
+			//2. localStorage{"stickies",[key,key,key...,key]}
+			localStorage.setItem("stickies",JSON.stringify(stickies));
+
+
+			//3.localStorage{"key","value"}{"key","value"}{"key","value"}
+			localStorage.setItem(key,value);
+
+			return stickies;
 
 		}
 
