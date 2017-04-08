@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sticky Project</title>
+	
+	<!-- insert JS and CSS -->
+	<!-- <script src="sticky.js"></script> -->
+	<!-- <link rel="stylesheet" type="text/css" href="sticky.css">
+ -->
+	<script>
+		// three data type need to create
+		// 1. [key,key,key...,key]
+		// 2. localStorage{"stickies",[key,key,key...,key]}
+		// 3. localStorage{"key","value"}{"key","value"}{"key","value"}
+
+		window.onload = init;
+
+		function init(argument) {
+			// get data from LocalStorage
+			// var test = localStorage.getItem("keyyyyy");
+			// console.log(test);
+
+			//check if [] been or not?
+			// if(!stickies){
+			// 	var stickies = createStickiesArray;
+			// }else{
+			// 	var stickies = localStorage.getItem("stickies");
+			// 	// transfer "[]" to []
+			// 	JSON.stringify(stickies);
+			// }
+
+
+			// //by forloop to get data
+			// for(var i=0;i<)
+
+			//get element
+			var btn = document.getElementById('btn');
+			btn.onclick = addStickyToDOM;
+		}
+
+		function addStickyToDOM() {
+			//get ul、text element
+			var value = document.getElementById("text").value;
+			var ul = document.getElementById("stickies");
+			//create li element and input attribute into it
+			var sticky  = document.createElement("li");
+			//create unique key 
+			var random_num = new Date().getTime();
+			var key = "sticky_" + random_num;
+			console.log(key);
+
+			sticky.setAttribute("id",key);
+
+			//insert to DOM
+			ul.appendChild(sticky);
+
+		}
+
+		// function createStickiesArray(){
+		// 	//get element
+		// 	document.getElementById();
+
+		// 	//input to localstorage
+
+		// }
+	</script>
+
+	<style>
+	li{
+		/*border: solid 1px red*/
+
+		width: 300px;
+		height: 300px;
+		background-color: #FFBD33;
+		list-style-type: none;
+		box-shadow:3px 3px 5px 6px #cccccc;
+		margin: 40px 20px;
+
+		text-align: center;
+		letter-spacing: 2px;
+		color: black;
+		font-family: Arial, '微軟正黑體', sans-serif;
+		padding: 10px 10px;
+		/*文字換行：一旦超出容器範圍 */
+		word-wrap: break-word;/*依照單字換行*/
+		/*word-break: break-all;*//*強制換行*/
+
+		/*文字超出高度則隱藏*/
+		overflow: hidden;
+
+		display: inline-block;
+	}
+	</style>
+
+</head>
+<body>
+	<form>
+
+		Color:		
+		<select id="selectColor">
+			<option value="yellow">yellow</option>
+			<option value="red">red</option>
+			<option value="green">green</option>
+			<option value="blue">blue</option>
+		</select>
+
+		Text: <input type="text" id="text">
+		<input type="button" id="btn" value="Add Sticky Note for Self">
+
+	</form>
+
+	<!-- insert sticky here -->
+	<div>
+		<ul id="stickies">
+			<li id="sticky_201704081430">Basque environmentalist Txetx Etcheverry said that some weapons had already been handed in.
+But he provided no other details to the AFP news agency about the transfer or what arms had been handed over, arguing that such details were "confidential".
+Eta says it will hand over all its weapons and explosives.
+Eta killed more than 800 people and wounded thousands in over 40 years of violence 
+		</li>
+		<li>
+		</li>
+		<li>
+		</li>
+		<li>
+		</li>
+		<li>
+		</li>
+		</ul>
+	</div>
+
+
+	
+</body>
+</html>
