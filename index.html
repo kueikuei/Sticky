@@ -11,49 +11,37 @@
 		// three data type need to create
 		// 1. [key,key,key...,key]
 		// 2. localStorage{"stickies",[key,key,key...,key]}
-		// 3. localStorage{"key","value"}{"key","value"}{"key","value"}
+		// 3. localStorage{"key","[value,color]"}{"key",[value,color]}{"key",[value,color]}
 
 		window.onload = init;
 
 		function init(argument) {
-			// get data from LocalStorage
+			//get element and set event for btn
+			var btn = document.getElementById('btn');
+			btn.onclick = addStickyToDOM;
+			// get stickiesArray from LocalStorage
 			var stickies = JSON.parse(localStorage.getItem("stickies"));
-			// console.log(typeof stickies);//obj
-			// console.log(stickies[0]);
 
 			//print every sticky on Sticky-Wall
 			if(stickies){
 				for(var i=0;i<stickies.length;i++){
 					var ul = document.getElementById("stickies");
 					var li = document.createElement("li");
-					li.innerHTML = localStorage.getItem(stickies[i]);
+					var stickyArray = JSON.parse(localStorage.getItem(stickies[i]));
+					li.innerHTML = stickyArray["value"];
+					li.setAttribute("id",stickies[i]);//set attribute to li
 					ul.appendChild(li);
+
+					//set color for historic sticky
+					selectBacGroundColor(stickies[i],stickyArray["color"]);
+
 				}
 			}
 				
-			
-
-
-			//check if [] been or not?
-			// if(!stickies){
-			// 	var stickies = createStickiesArray;
-			// }else{
-			// 	var stickies = localStorage.getItem("stickies");
-			// 	// transfer "[]" to []
-			// 	JSON.stringify(stickies);
-			// }
-
-
-			// //by forloop to get data
-			// for(var i=0;i<)
-
-			//get element
-			var btn = document.getElementById('btn');
-			btn.onclick = addStickyToDOM;
 		}
 
 		function addStickyToDOM() {
-			//get ul、text、select element
+			//get ul、text element
 			var value = document.getElementById("text").value;
 			var ul = document.getElementById("stickies");
 			
@@ -71,18 +59,15 @@
 			ul.appendChild(sticky);
 			sticky.innerHTML = value;
 			//sticky bac-color change
-			selectBacGroundColor(key);
+			var color = selectBacGroundColor(key,"");
 			
-
-			// document.getElementById(key).style.backgroundColor = selectColor;
-
 			//input key、value into LocalStorage
-			var stickiesArray = saveStickyToLocalStorage(key,value);
+			var stickiesArray = saveStickyToLocalStorage(key,value,color);
 			console.log(stickiesArray);
 
 		}
 
-		function saveStickyToLocalStorage(key,value) {
+		function saveStickyToLocalStorage(key,value,color) {
 			// 1. [key,key,key...,key]
 			var stickies = JSON.parse(localStorage.getItem("stickies"));  
 
@@ -97,15 +82,24 @@
 			localStorage.setItem("stickies",JSON.stringify(stickies));
 
 
-			//3.localStorage{"key","value"}{"key","value"}{"key","value"}
-			localStorage.setItem(key,value);
+			//3.localStorage{"key",{}}{"key",{}}{"key",{}}
+			var stickyObj = {
+				"value": value,
+				"color": color
+			}
+
+			localStorage.setItem(key,JSON.stringify(stickyObj));
 
 			return stickies;
 
 		}
 
-		function selectBacGroundColor(key){
-			var selectColor = document.getElementById("selectColor").value;
+		function selectBacGroundColor(key, color){
+			
+			var selectColor = color;
+			if(!selectColor){
+				var selectColor = document.getElementById("selectColor").value;
+			}
 
 			switch(selectColor) {
 			    case "yellow":
@@ -120,15 +114,10 @@
 			    case "blue":
 			        document.getElementById(key).style.backgroundColor = "#CCEEFF";
 			}
+
+			return selectColor;
 		}
 
-		// function createStickiesArray(){
-		// 	//get element
-		// 	document.getElementById();
-
-		// 	//input to localstorage
-
-		// }
 	</script>
 
 	<style>
