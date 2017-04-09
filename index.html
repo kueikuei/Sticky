@@ -17,8 +17,22 @@
 
 		function init(argument) {
 			// get data from LocalStorage
-			// var test = localStorage.getItem("keyyyyy");
-			// console.log(test);
+			var stickies = JSON.parse(localStorage.getItem("stickies"));
+			// console.log(typeof stickies);//obj
+			// console.log(stickies[0]);
+
+			//print every sticky on Sticky-Wall
+			if(stickies){
+				for(var i=0;i<stickies.length;i++){
+					var ul = document.getElementById("stickies");
+					var li = document.createElement("li");
+					li.innerHTML = localStorage.getItem(stickies[i]);
+					ul.appendChild(li);
+				}
+			}
+				
+			
+
 
 			//check if [] been or not?
 			// if(!stickies){
@@ -143,16 +157,7 @@
 But he provided no other details to the AFP news agency about the transfer or what arms had been handed over, arguing that such details were "confidential".
 Eta says it will hand over all its weapons and explosives.
 Eta killed more than 800 people and wounded thousands in over 40 years of violence 
-		</li>
-		<li>
-		</li>
-		<li>
-		</li>
-		<li>
-		</li>
-		<li>
-		</li>
-		</ul>
+		
 	</div>
 
 
