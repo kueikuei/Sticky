@@ -53,9 +53,11 @@
 		}
 
 		function addStickyToDOM() {
-			//get ul、text element
+			//get ul、text、select element
 			var value = document.getElementById("text").value;
 			var ul = document.getElementById("stickies");
+			
+			// console.log(selectColor);
 			//create li element and input attribute into it
 			var sticky  = document.createElement("li");
 			//create unique key 
@@ -65,9 +67,14 @@
 
 			sticky.setAttribute("id",key);
 
-			//insert to DOM
+			//insert to DOM and select color for sticky
 			ul.appendChild(sticky);
 			sticky.innerHTML = value;
+			//sticky bac-color change
+			selectBacGroundColor(key);
+			
+
+			// document.getElementById(key).style.backgroundColor = selectColor;
 
 			//input key、value into LocalStorage
 			var stickiesArray = saveStickyToLocalStorage(key,value);
@@ -95,6 +102,24 @@
 
 			return stickies;
 
+		}
+
+		function selectBacGroundColor(key){
+			var selectColor = document.getElementById("selectColor").value;
+
+			switch(selectColor) {
+			    case "yellow":
+			        document.getElementById(key).style.backgroundColor = "#FFBD33";
+			        break;
+			    case "red":
+			        document.getElementById(key).style.backgroundColor = "#FFC8B4";
+			        break;
+			    case "green":
+			        document.getElementById(key).style.backgroundColor = "#CCFF99";
+			        break;
+			    case "blue":
+			        document.getElementById(key).style.backgroundColor = "#CCEEFF";
+			}
 		}
 
 		// function createStickiesArray(){
