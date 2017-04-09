@@ -19,6 +19,6 @@ li{
 
 	/*文字超出高度則隱藏*/
 	overflow: hidden;
-
+	
 	display: inline-block;
 }
