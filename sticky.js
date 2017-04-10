@@ -63,6 +63,10 @@ function addStickyToDOM() {
 
 		//set delete event
 		sticky.onclick = deleteStickyFromDOM;
+
+		//clear sticky's text
+		document.getElementById("text").value = "";
+
 	}
 	
 
