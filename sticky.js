@@ -131,7 +131,10 @@
 			}
 	
 			console.log(stickiesArray);
-			//remove from localstorage
+			//remove from localstorage(2.localStorage{"stickies",[key,,key...,key]})
 			localStorage.setItem("stickies",JSON.stringify(stickiesArray));
+
+			//remove from localstorage(3. localStorage{"key","[value,color]"}{"key",[value,color]}{"key",[value,color]})
+			localStorage.removeItem(e.target.id);
 		}
 
