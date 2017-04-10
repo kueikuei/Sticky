@@ -25,6 +25,9 @@
 					//set color for historic sticky
 					selectBacGroundColor(stickies[i],stickyArray["color"]);
 
+					//set event to every sticky
+					li.onclick = deleteStickyFromDOM;
+
 				}
 			}
 				
@@ -54,6 +57,9 @@
 			//input key、value into LocalStorage
 			var stickiesArray = saveStickyToLocalStorage(key,value,color);
 			console.log(stickiesArray);
+
+			//set delete event
+			sticky.onclick = deleteStickyFromDOM;
 
 		}
 
@@ -107,3 +113,25 @@
 
 			return selectColor;
 		}
+
+		function deleteStickyFromDOM(e){
+			//remove from sticky wall
+			var ul = document.getElementById("stickies");
+			var li = document.getElementById(e.target.id);
+			ul.removeChild(li);
+
+			// update stickies array
+			var stickiesArray = JSON.parse(localStorage.getItem("stickies"));
+			console.log(stickiesArray);
+
+			for(var i=0;i<stickiesArray.length;i++){
+				if(e.target.id==stickiesArray[i]){
+					stickiesArray.splice(i,1);
+				}
+			}
+	
+			console.log(stickiesArray);
+			//remove from localstorage
+			localStorage.setItem("stickies",JSON.stringify(stickiesArray));
+		}
+
